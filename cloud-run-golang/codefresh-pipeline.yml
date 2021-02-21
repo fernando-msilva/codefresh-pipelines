@@ -4,6 +4,7 @@ stages:
   - 'clone'
   - 'build'
   - 'push'
+  - 'deploy'
 
 steps:
   clear:
@@ -36,3 +37,18 @@ steps:
     registry: 'golang-api'
     candidate: '${{build}}'
     tag: '${{CF_SHORT_REVISION}}'
+
+  deploy:
+    stage: 'deploy'
+    title: 'Deploying new revision'
+    type: freestyle
+    image: google/cloud-sdk:alpine
+    commands:
+      - cat '${{GOOGLE_CREDENTIALS}} > credential.json'
+      - gcloud auth activate-service-account --key-file credential.json
+      - gcloud run deploy golang-api \
+        --platform ${{CLOUD_RUN_PLATFORM}} \
+        --project ${{PROJECT_ID}} \
+        --image gcr.io/${{PROJECT_ID}}/golang-api:${{CF_SHORT_REVISION}} \
+        --region ${{CLOUD_RUN_REGION}} \
+        --allow-unauthenticated
