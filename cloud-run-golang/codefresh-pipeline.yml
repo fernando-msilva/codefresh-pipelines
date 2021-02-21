@@ -44,7 +44,7 @@ steps:
     type: freestyle
     image: google/cloud-sdk:alpine
     commands:
-      - echo '${{GOOGLE_CREDENTIALS}} > credential.json'
+      - echo '${{GOOGLE_CREDENTIALS}}' > credential.json
       - gcloud auth activate-service-account --key-file credential.json
       - gcloud run deploy golang-api \
         --platform ${{CLOUD_RUN_PLATFORM}} \
