@@ -46,9 +46,4 @@ steps:
     commands:
       - echo '${{GOOGLE_CREDENTIALS}}' > credential.json
       - gcloud auth activate-service-account --key-file credential.json
-      - gcloud run deploy golang-api \
-        --platform ${{CLOUD_RUN_PLATFORM}} \
-        --project ${{PROJECT_ID}} \
-        --image gcr.io/${{PROJECT_ID}}/golang-api:${{CF_SHORT_REVISION}} \
-        --region ${{CLOUD_RUN_REGION}} \
-        --allow-unauthenticated
+      - gcloud run deploy golang-api --platform ${{CLOUD_RUN_PLATFORM}} --project ${{PROJECT_ID}} --image gcr.io/${{PROJECT_ID}}/golang-api:${{CF_SHORT_REVISION}} --region ${{CLOUD_RUN_REGION}} --allow-unauthenticated
