@@ -27,4 +27,4 @@ steps:
     tag: '${{CF_SHORT_REVISION}}'
     disable_push: true
     stage: 'build'
-    working_directory: "cloud-run-golang"
+    working_directory: "${{CF_REPO_NAME}}/cloud-run-golang"
