@@ -3,8 +3,6 @@ version: '1.0'
 stages:
   - 'clone'
   - 'build'
-  - 'push'
-  - 'deploy'
 
 steps:
   clear:
@@ -28,3 +26,5 @@ steps:
     image_name: 'golang-api'
     tag: '${{CF_SHORT_REVISION}}'
     disable_push: true
+    stage: 'build'
+    working_directory: "cloud-run-golang"
