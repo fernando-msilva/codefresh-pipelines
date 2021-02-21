@@ -1,0 +1,30 @@
+version: '1.0'
+
+stages:
+  - 'clone'
+  - 'build'
+  - 'push'
+  - 'deploy'
+
+steps:
+  clear:
+    stage: 'clone'
+    title: 'Cleanup previous clone'
+    image: alpine/git:latest
+    commands:
+      - rm -rf ${{CF_REPO_NAME}}
+
+  clone:
+    stage: 'clone'
+    type: 'git-clone'
+    title: 'Cloning...'
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
+    git: fernando-msilva
+
+  build:
+    title: 'Building image...'
+    type: 'build'
+    image_name: 'golang-api'
+    tag: '${{CF_SHORT_REVISION}}'
+    disable_push: true
