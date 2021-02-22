@@ -26,9 +26,14 @@ steps:
     title: 'Lint Dockerfile'
     stage: 'build'
     type: freestyle
-    image: alpine
+    image: hadolint/hadolint
+    working_directory: "${{CF_REPO_NAME}}/cloud-run-golang"
     commands:
-      - cat ${{CF_REPO_NAME}}/cloud-run-golang/Dockerfile
+      - < Dockerfile
+
+    approve:
+      type: pending-approval
+      title: Wait for approval
 
   build:
     title: 'Building image'
