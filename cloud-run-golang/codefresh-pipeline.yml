@@ -28,7 +28,7 @@ steps:
     type: freestyle
     image: hadolint/hadolint
     commands:
-      - < ${{CF_REPO_NAME}}/cloud-run-golang/Dockerfile
+      - /bin/hadolint < ${{CF_REPO_NAME}}/cloud-run-golang/Dockerfile
 
   build:
     title: 'Building image'
