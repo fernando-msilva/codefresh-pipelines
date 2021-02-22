@@ -32,6 +32,7 @@ steps:
       - < Dockerfile
 
     approve:
+      stage: 'build'
       type: pending-approval
       title: Wait for approval
 
