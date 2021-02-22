@@ -31,10 +31,10 @@ steps:
     commands:
       - < Dockerfile
 
-    approve:
-      stage: 'build'
-      type: pending-approval
-      title: Wait for approval
+  approve:
+    stage: 'build'
+    type: pending-approval
+    title: Wait for approval
 
   build:
     title: 'Building image'
